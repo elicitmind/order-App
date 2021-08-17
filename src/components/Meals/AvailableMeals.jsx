@@ -6,14 +6,14 @@ import MealItem from './MealItem/MealItem';
 const DUMMY_MEALS = [
   {
     id: 'm1',
-    name: 'Sushi',
-    description: 'Finest fish and veggies',
+    name: 'Green smoothie',
+    description: 'Finest fats and veggies',
     price: 22.99,
   },
   {
     id: 'm2',
-    name: 'Guacamole',
-    description: 'A Brain`s specialty!',
+    name: 'Protein shake +omega3',
+    description: 'A Body`s specialty!',
     price: 16.5,
   },
   {
@@ -33,7 +33,7 @@ const DUMMY_MEALS = [
 const AvailableMeals = () => {
   const mealsList = DUMMY_MEALS.map((e) => (
     <MealItem
-    id={e.id}
+      id={e.id}
       key={e.id}
       name={e.name}
       description={e.description}
