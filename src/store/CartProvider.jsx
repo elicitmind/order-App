@@ -8,19 +8,70 @@ const defaultCartState = {
 
 const cartReducer = (state, action) => {
   if (action.type === 'ADD') {
-    const updatedItems = state.items.concat(action.item);
+    //ITS HOW I CALCULATE TOTAL PRICE AMOUNT ADDING ADDED ITEMS PRICE*AMOUNT TO PREVIOUS VALUE
     const updatedTotalAmount =
-      state.totalAmount + (action.item.price * action.item.amount);
+      state.totalAmount + action.item.price * action.item.amount;
+
+    //CHECK IF ITEM IS ALREADY A PART OF MY STATE.ITEMS AND RETURN ITS INDEX!!
+    const existingCartItemsIndex = state.items.findIndex(
+      (e) => e.id === action.item.id
+    );
+    console.log(existingCartItemsIndex);
+
+    //IF THE ITEMS IS ALREADY A PART OF OUR STATE.ITEMS WE CAN ACCESS IT BY DECLARING A NEW CONST
+    //IF NOT THE VALUE WILL BE UNDEFINED
+    const existingCartItem = state.items[existingCartItemsIndex];
+
+    //I DECLARE A NEW LET VARIABLE OUTSIDE THE IF STATEMENT TO USE IT THE FOLLOWING LOGIC AND REPLACE OLD STATE
+    let updatedItems;
+
+    //IF STATEMENT IF THE ITEM ALREADY EXIST IN OUR STATE.ITEMS
+    if (existingCartItem) {
+      //I DECLARE AN UPDATED OBJECT WITH THE PREVIOUS KEYS, I JUST WANT TO UPDATE THE AMOUNT
+      const updatedItem = {
+        ...existingCartItem,
+        amount: existingCartItem.amount + action.item.amount,
+      };
+
+      //I COPY THE OLD STATE OBJECTS INTO NEW ARRAY
+      updatedItems = [...state.items];
+      //IF THE ITEM EXIST I NOW OVERRIDE IT WITH OUR UPDATED, BY THE NEW AMOUNT, ITEM OBJECT!
+      updatedItems[existingCartItemsIndex] = updatedItem;
+    } else {
+      //IF ADDED ITEM DOES NOT EXIST YET I JUST CREATE A NEW ARRAY WITH THE NEW ITEM ADDED BY CONCAT() METHOD!
+      updatedItems = state.items.concat(action.item);
+    }
+
+    //THEN I RETURN A NEW STATE WHICH PICKS UP MY UPDATED ITEMS WHICH ARE NOT DOUBLED!!
+    return {
+      items: updatedItems,
+      totalAmount: updatedTotalAmount,
+    };
+  }
+
+  if (action.type === 'REMOVE') {
+    const existingCartItemsIndex = state.items.findIndex(
+      (e) => e.id === action.id
+    );
+    const existingCartItem = state.items[existingCartItemsIndex];
+
+    const updatedTotalAmount = state.totalAmount - existingCartItem.price;
+
+    let updatedItems;
+
+    if (existingCartItem.amount === 1) {
+      updatedItems = state.items.filter(e=>e.id !== action.id)
+    } else {
+      const updatedItem = { ...existingCartItem, amount: existingCartItem.amount - 1}
+      updatedItems = [...state.items]
+      updatedItems[existingCartItemsIndex] = updatedItem
+    }
 
     return {
       items: updatedItems,
       totalAmount: updatedTotalAmount,
     };
   }
-  if (action.type === 'REMOVE') {
-    
-  }
-  return defaultCartState;
 };
 
 const CartProvider = (props) => {

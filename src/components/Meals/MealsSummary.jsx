@@ -6,12 +6,10 @@ const MealsSummary = () => {
     <section className={styles.summary}>
       <h2>Health source, Provided To You</h2>
       <p>
-        Choose your Health meal from our organic selection of available meals
-        and enjoy the Real Medicine for your body.
+        The Real Medicine for your body.
       </p>
       <p>
-        All our meals are cooked with high-quality ingredients, just-in-time and
-        of course by experienced chefs!
+      When you stick to a diet of healthy food, you're setting yourself up for fewer mood fluctuations, a Higher Quality day  and an improved ability to focus.
       </p>
     </section>
   );
