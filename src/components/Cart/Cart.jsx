@@ -34,7 +34,7 @@ const Cart = (props) => {
             onAdd={cartItemAddHandler.bind(null, e)}
             onRemove={cartItemRemoveHandler.bind(null, e.id)}
           />
-        ))}
+      ))}
       </ul>
       <div className={styles.total}>
         <span>that will cost you!</span>

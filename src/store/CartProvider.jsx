@@ -50,20 +50,28 @@ const cartReducer = (state, action) => {
   }
 
   if (action.type === 'REMOVE') {
+  //CREATING THAT CONST WILL HELP WITH ALL THE IF STATEMENT CHECKS! THAT VARIABLE EITHER EXIST OR NOT
+  //THIS CASE WE DEFINE IF REQUESTED IN ACTION ITEM EXIST IN OUR STATE ARRAY
     const existingCartItemsIndex = state.items.findIndex(
       (e) => e.id === action.id
     );
+  //ANOTHER VARIABLE TO HELP WITH THE LOGIC
+  //IF INDEX FOUND WE CAN ACCESS AND ASSIGN ITEM'S VALUE TO THE CONST
     const existingCartItem = state.items[existingCartItemsIndex];
-
+  //THIS ONE IS ALWAYS TRUE AND VALID
     const updatedTotalAmount = state.totalAmount - existingCartItem.price;
-
+  //WE WILL MODIFY THE ITEM'S OBJECT ONLY BY ITS NEW AMOUNT THEREFORE WE USE LET VARIABLE WHICH WILL COPY AND OVERRIDE PREVIOUS STATE
     let updatedItems;
 
+  //CHECK IF IT"S THE LAST ITEM WE WANT TO REMOVE THEN WE WANT TO REMOVE IT FROM THE ARRAY USING FILTER()
     if (existingCartItem.amount === 1) {
       updatedItems = state.items.filter(e=>e.id !== action.id)
     } else {
+  //IT AMOUNT IS DIFFERENT THAN 1 (HAS TO BE HIGHER IF IT DOES EXIST) THEN I WANT TO COPY THE ITEM AND OVERRIDE ITS AMOUNT
       const updatedItem = { ...existingCartItem, amount: existingCartItem.amount - 1}
+  //I COPY THE OLD STATE
       updatedItems = [...state.items]
+  //I OVERRIDE THE OBJECT IN OUR OLD STATE WITH THE UPDATED ITEM
       updatedItems[existingCartItemsIndex] = updatedItem
     }
 
