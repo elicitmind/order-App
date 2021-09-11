@@ -9,7 +9,7 @@ function App() {
 
   const showCartHandler = () => {
     setCartIsShown(true)
-    console.log("clock")
+    // console.log("clock")
   }
 
 const hideCartHandler = () => {

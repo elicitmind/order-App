@@ -8,8 +8,8 @@ const HeaderCartButton = (props) => {
   const ctx = useContext(CartContext);
   const [btnIsHighlighted, setBtnIsHighlighted] = useState(false);
 
-  console.log(btnIsHighlighted);
-  console.log(ctx);
+  // console.log(btnIsHighlighted);
+  // console.log(ctx);
   //PULL ITEMS FROM CTX OBJECT AND ASSIGN TO VARIABLE
   const { items } = ctx;
 
